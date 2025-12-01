@@ -21,32 +21,7 @@ public class Intake implements Subsystem {
     public static final Intake INSTANCE = new Intake();
     private Intake() { }
 
-    List<BallColor> ballOrder = new ArrayList<>();
-    private boolean isBallPresent = false;
-
-    public enum BallColor {
-        PURPLE, GREEN
-    }
-
-    public boolean isPurple(NormalizedRGBA reading) {
-        return false;
-    }
-
-    public boolean isGreen(NormalizedRGBA reading) {
-        return false;
-    }
-
-    public List<BallColor> getBallOrder() {
-        return ballOrder;
-    }
-
-    public void clearIntake() {
-        ballOrder.clear();
-    }
-
-
     private final MotorEx intakeMotor = new MotorEx("intakeMotor").brakeMode();
-    private final NormalizedColorSensor colorSensor = ActiveOpMode.hardwareMap().get(NormalizedColorSensor.class, "colorSensor");
 
     private final ServoEx gateServo = new ServoEx("gateServo");
 
@@ -58,19 +33,5 @@ public class Intake implements Subsystem {
     public Command closeGate = new SetPosition(gateServo, SoftwareConstants.Intake.gateClosePosition);
 
     public void periodic() {
-        NormalizedRGBA currentReading = colorSensor.getNormalizedColors();
-
-        boolean isPurpleNow = isPurple(currentReading);
-        boolean isGreenNow = isGreen(currentReading);
-        boolean isBallPresentNow = isPurpleNow || isGreenNow;
-
-        if (isBallPresentNow && !isBallPresent) {
-            if (isPurpleNow) ballOrder.add(BallColor.PURPLE);
-            else ballOrder.add(BallColor.GREEN);
-        }
-
-        isBallPresent = isBallPresentNow;
-
-        ActiveOpMode.telemetry().addData("Balls", ballOrder);
     }
 }

@@ -8,9 +8,11 @@ import org.firstinspires.ftc.teamcode.SoftwareConstants;
 
 import dev.nextftc.control.ControlSystem;
 import dev.nextftc.control.KineticState;
+import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.subsystems.Subsystem;
 import dev.nextftc.extensions.pedro.PedroComponent;
 import dev.nextftc.hardware.impl.MotorEx;
+import dev.nextftc.hardware.powerable.SetPower;
 
 public class Turret implements Subsystem {
     public static final Turret INSTANCE = new Turret();
@@ -22,6 +24,12 @@ public class Turret implements Subsystem {
 
     private final MotorEx turretRotator = new MotorEx("turretRotator").zeroed().brakeMode();
     double turretAngleRadians, targetTicks;
+
+    public Command turnTurretLeft = new SetPower(turretRotator, 0.1);
+    public Command turnTurretRight = new SetPower(turretRotator, -0.1);
+    public Command stopTurret = new SetPower(turretRotator, 0);
+
+    /*
 
     public double calculateTurretAngleToGoal() {
         Pose currentPose = PedroComponent.follower().getPose();
@@ -40,7 +48,10 @@ public class Turret implements Subsystem {
         return MathUtils.clamp(targetTicks, SoftwareConstants.Turret.minTicks, SoftwareConstants.Turret.maxTicks);
     }
 
+     */
+
     public void periodic() {
+        /*
         turretAngleRadians = calculateTurretAngleToGoal();
         targetTicks = convertTurretAngleToTicks(turretAngleRadians);
         controller.setGoal(new KineticState(targetTicks, 0, 0));
@@ -50,5 +61,6 @@ public class Turret implements Subsystem {
                         turretRotator.getState()
                 )
         );
+        */
     }
 }

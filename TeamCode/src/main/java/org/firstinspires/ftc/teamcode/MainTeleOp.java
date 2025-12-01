@@ -97,7 +97,7 @@ public class MainTeleOp extends NextFTCOpMode {
                 .whenBecomesTrue(Intake.INSTANCE.outtakeArtifacts)
                 .whenBecomesFalse(Intake.INSTANCE.stopIntake);
 
-        /*
+
         Gamepads.gamepad1().rightBumper().and(Gamepads.gamepad1().rightTrigger().greaterThan(0.05))
                 .whenBecomesTrue(new SequentialGroup(
                         Flywheel.INSTANCE.turnFlywheelOn,
@@ -108,10 +108,15 @@ public class MainTeleOp extends NextFTCOpMode {
                         Intake.INSTANCE.closeGate
                 ));
 
-        Gamepads.gamepad2().cross()
-                .whenBecomesTrue(new InstantCommand(() -> PedroComponent.follower().setPose(loadingZone)));
+        Gamepads.gamepad1().dpadRight()
+                .whenBecomesTrue(Turret.INSTANCE.turnTurretRight)
+                .whenBecomesFalse(Turret.INSTANCE.stopTurret);
 
-         */
+        Gamepads.gamepad1().dpadLeft()
+                .whenBecomesTrue(Turret.INSTANCE.turnTurretLeft)
+                .whenBecomesFalse(Turret.INSTANCE.stopTurret);
+
+
     }
 
     @Override

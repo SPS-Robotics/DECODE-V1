@@ -32,8 +32,10 @@ public class Flywheel implements Subsystem {
 
     public double getHoodPosFromDistance(double distanceUnits) {
         // Replace with regression after testing.
-        return 0.5;
+        return 0;
     }
+
+    /*
 
     public double getDistanceToGoal() {
         Pose currentPose = PedroComponent.follower().getPose();
@@ -44,6 +46,8 @@ public class Flywheel implements Subsystem {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
+     */
+
     ControlSystem controller = ControlSystem.builder()
             .velPid(SoftwareConstants.Flywheel.kP, SoftwareConstants.Flywheel.kI, SoftwareConstants.Flywheel.kD)
             .basicFF(SoftwareConstants.Flywheel.kV, SoftwareConstants.Flywheel.kA, SoftwareConstants.Flywheel.kS)
@@ -53,8 +57,10 @@ public class Flywheel implements Subsystem {
     public Command turnFlywheelOff = new RunToVelocity(controller, 0);
 
     public void periodic() {
+        /*
         double distance = getDistanceToGoal();
-        double hoodPos = getHoodPosFromDistance(distance);
+        */
+        double hoodPos = getHoodPosFromDistance(0);
 
         if (Math.abs(hoodPos - hoodServos.getPosition()) > 0.01) hoodServos.setPosition(hoodPos);
 
